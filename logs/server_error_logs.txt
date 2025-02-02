@@ -1,0 +1,5 @@
+1/30/2025, 12:15:08 AM	error:MongoServerError: bad auth : authentication failed
+1/30/2025, 12:15:35 AM	error:MongoServerError: bad auth : authentication failed
+1/30/2025, 12:16:12 AM	error:MongoServerError: bad auth : authentication failed
+1/30/2025, 12:16:25 AM	error:MongoServerError: bad auth : authentication failed
+1/30/2025, 12:21:00 AM	error:MongoServerError: bad auth : authentication failed
