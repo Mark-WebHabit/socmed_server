@@ -3,3 +3,4 @@
 1/30/2025, 12:16:12 AM	error:MongoServerError: bad auth : authentication failed
 1/30/2025, 12:16:25 AM	error:MongoServerError: bad auth : authentication failed
 1/30/2025, 12:21:00 AM	error:MongoServerError: bad auth : authentication failed
+2/3/2025, 1:10:28 PM	error:MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/

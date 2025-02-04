@@ -1,9 +1,9 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 const postSchema = new Schema({
     title: { type: String, default: "" },
     body: { type: String, required: true },
     author: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "User",
     },
 }, { timestamps: true });

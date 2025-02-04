@@ -4,6 +4,8 @@ import { decodeJWT } from "../utilities/tokens.js";
 import { isEmptyObject } from "../utilities/validations.js";
 import { IDecode } from "../interfaces/IDecode.js";
 import User from "../models/User.js";
+import { CustomRequest } from "../interfaces/IRequest.js";
+import { JwtPayload } from "jsonwebtoken";
 
 export const verifyToken = async (
   req: Request,
@@ -88,4 +90,17 @@ export const verifyToken = async (
           return;
         });
     });
+};
+
+// plug/insert the user id to the request
+
+export const requestUserId = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const token = req.cookies.accessToken;
+  const decoded = decodeJWT(token) as { payload: JwtPayload };
+  req.user = decoded?.payload?.userId;
+  next();
 };

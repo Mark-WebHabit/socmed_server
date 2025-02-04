@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
 import Post from "../models/Post.js";
+import { isValidObjectId } from "../utilities/validations.js";
 export const createPost = asyncHandler(async (req, res) => {
     const { title, body, author } = req.body;
     if (!body) {
@@ -9,6 +10,10 @@ export const createPost = asyncHandler(async (req, res) => {
     }
     if (!author) {
         res.status(400).json({ message: "Author not defined" });
+        return;
+    }
+    if (!isValidObjectId(author)) {
+        res.status(400).json({ message: "Author unknown" });
         return;
     }
     const user = await User.findById(author);
@@ -27,4 +32,16 @@ export const createPost = asyncHandler(async (req, res) => {
 export const getAllPost = asyncHandler(async (req, res) => {
     const posts = await Post.find();
     res.status(200).json(posts);
+});
+export const deletePost = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    if (!id) {
+        res.status(400).json({ message: "ID not found" });
+    }
+    if (!isValidObjectId(id)) {
+        res.status(400).json({ message: "Invalid ID format" });
+        return;
+    }
+    const post = await Post.findByIdAndDelete(id);
+    res.status(200).json(post);
 });

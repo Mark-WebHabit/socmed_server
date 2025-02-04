@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/auth", authRoutes);
 app.use("/user", verifyToken, userRoutes);
-app.use("/user", verifyToken, postRoutes);
+app.use("/post", verifyToken, postRoutes);
 app.use("/verify", tokenRoutes);
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "authenticated.html"));

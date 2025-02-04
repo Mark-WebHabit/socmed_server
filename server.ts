@@ -15,9 +15,11 @@ import userRoutes from "./routes/Users.js";
 import tokenRoutes from "./routes/Token.js";
 import authRoutes from "./routes/Auth.js";
 import postRoutes from "./routes/Post.js";
+import likeRoutes from "./routes/Like.js";
 
 // custom middleware
 import { verifyToken } from "./middlewares/token.js";
+import { requestUserId } from "./middlewares/token.js";
 
 // constant
 import { URI } from "./utilities/constant.js";
@@ -42,6 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoutes);
 app.use("/user", verifyToken, userRoutes);
 app.use("/post", verifyToken, postRoutes);
+app.use("/likes", verifyToken, requestUserId, likeRoutes);
 app.use("/verify", tokenRoutes);
 
 app.get("/", (req: Request, res: Response) => {
