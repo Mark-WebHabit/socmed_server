@@ -37,6 +37,7 @@ export const deletePost = asyncHandler(async (req, res) => {
     const { id } = req.params;
     if (!id) {
         res.status(400).json({ message: "ID not found" });
+        return;
     }
     if (!isValidObjectId(id)) {
         res.status(400).json({ message: "Invalid ID format" });
@@ -44,4 +45,26 @@ export const deletePost = asyncHandler(async (req, res) => {
     }
     const post = await Post.findByIdAndDelete(id);
     res.status(200).json(post);
+});
+export const editPost = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { title, body } = req.body;
+    if (!id) {
+        res.status(400).json({ message: "ID not found" });
+        return;
+    }
+    if (!title || !body) {
+        res.status(400).json({ message: "Missing body field" });
+        return;
+    }
+    if (!isValidObjectId(id)) {
+        res.status(400).json({ message: "Invalid ID format" });
+        return;
+    }
+    const post = await Post.findByIdAndUpdate(id, {
+        title,
+        body,
+    }, { new: true });
+    res.status(200).json(post);
+    return;
 });

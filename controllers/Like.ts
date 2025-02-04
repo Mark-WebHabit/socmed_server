@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import { ILike } from "../interfaces/ILike.js";
 import User from "../models/User.js";
@@ -67,3 +67,25 @@ export const like = asyncHandler(
     }
   }
 );
+
+export const getPostLike = asyncHandler(async (req: Request, res: Response) => {
+  const { postId } = req.params;
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    res.status(404).json({ message: "Post not found" });
+    return;
+  }
+
+  const likes = await Like.find({
+    postId,
+    isLiked: true,
+  });
+
+  if (!likes || likes?.length == 0) {
+    res.status(200).json([]);
+  } else {
+    res.status(200).json(likes);
+  }
+});

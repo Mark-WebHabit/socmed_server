@@ -75,3 +75,11 @@ export const verifyToken = async (req, res, next) => {
         });
     });
 };
+// plug/insert the user id to the request
+export const requestUserId = async (req, res, next) => {
+    var _a;
+    const token = req.cookies.accessToken;
+    const decoded = decodeJWT(token);
+    req.user = (_a = decoded === null || decoded === void 0 ? void 0 : decoded.payload) === null || _a === void 0 ? void 0 : _a.userId;
+    next();
+};
